@@ -1,5 +1,6 @@
 package com.jaitechltd.latlongspringbootservice;
 
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Slf4j
 @RestController
 public class LatLongController {
 
@@ -26,6 +28,7 @@ public class LatLongController {
         responseHeaders.set("Access-Control-Allow-Origin", "*");
 
         if (postCode.isEmpty()) {
+            log.error("Postcode is empty");
             return ResponseEntity.badRequest().body("Please provide a postcode");
         }
         var client = HttpClient.newHttpClient();
@@ -36,11 +39,13 @@ public class LatLongController {
         Object json = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            log.info("Response: {}", response.body());
             json = response.body();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         if (response == null || json == null) {
+            log.error("Error getting lat long for postcode: " + postCode);
             return ResponseEntity.badRequest().body("Downstream service is not available");
         }
         return ResponseEntity.ok().headers(responseHeaders).body(json);
