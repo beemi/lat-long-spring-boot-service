@@ -32,12 +32,16 @@ public class LatLongController {
         var url = POSTCODE_URL + postCode;
         var request = HttpRequest.newBuilder(URI.create(url)).build();
 
+        HttpResponse<String> response = null;
         Object json = null;
         try {
-            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
             json = response.body();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        }
+        if (response == null || json == null) {
+            return ResponseEntity.badRequest().body("Downstream service is not available");
         }
         return ResponseEntity.ok().headers(responseHeaders).body(json);
     }
