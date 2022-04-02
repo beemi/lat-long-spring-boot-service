@@ -20,6 +20,10 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// swagger
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.6'
+
+
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
