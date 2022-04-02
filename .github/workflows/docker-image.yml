@@ -68,11 +68,3 @@ jobs:
             username: ${{ github.actor }}
             GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Sign the published Docker image
-        if: ${{ github.event_name != 'pull_request' }}
-        env:
-          COSIGN_EXPERIMENTAL: "true"
-          # This step uses the identity token to provision an ephemeral certificate
-          # against the sigstore community Fulcio instance.
-        run: cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
-
