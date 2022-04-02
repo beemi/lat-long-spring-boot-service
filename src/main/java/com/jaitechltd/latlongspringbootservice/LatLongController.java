@@ -45,7 +45,7 @@ public class LatLongController {
             e.printStackTrace();
         }
         if (response == null || json == null) {
-            log.error("Error getting lat long for postcode: " + postCode);
+            log.error("Error getting lat long for postcode: " + url);
             return ResponseEntity.badRequest().body("Downstream service is not available");
         }
         return ResponseEntity.ok().headers(responseHeaders).body(json);
