@@ -31,7 +31,7 @@ public class LatLongRestClient {
      */
     public Mono<ResponseDto> getLatLong(final String postCode) {
         var url = postcodeIoDns + postcodeIoBaseUrl + postCode;
-        log.info("URL: {}", url);
+        LOG.info("URL: {}", url);
         return webClient.get()
                 .uri(url)
                 .retrieve()

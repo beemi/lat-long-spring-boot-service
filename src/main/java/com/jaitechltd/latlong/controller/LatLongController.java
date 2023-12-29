@@ -1,5 +1,6 @@
 package com.jaitechltd.latlong.controller;
 
+import com.jaitechltd.latlong.dto.response.ErrorResponseDto;
 import com.jaitechltd.latlong.dto.response.LatLongResponseDto;
 import com.jaitechltd.latlong.exceptions.BadRequestException;
 import com.jaitechltd.latlong.service.LatLongService;
@@ -24,14 +25,17 @@ public class LatLongController {
     }
 
     @GetMapping("/getLatLong")
-    @Operation(summary = "Get lat long from postcode.io")
+    @Operation(summary = "Get lat long from postcode.io", description = "Get lat long from postcode.io", tags = {"lat-long-service"}
+            , operationId = "getLatLong", responses = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "OK"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @io.swagger.v3.oas.annotations.media.Content(schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = ErrorResponseDto.class)))})
     public Mono<LatLongResponseDto> getLatLong(@RequestParam("postcode") final String postCode) {
 
-        final var responseDto = latLongService.getLatLong(postCode);
-        if (responseDto == null) {
+        if (postCode == null || postCode.isEmpty()) {
             throw new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid postcode");
         }
-        return responseDto;
+        return latLongService.getLatLong(postCode);
     }
 }
 

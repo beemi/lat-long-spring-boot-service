@@ -10,6 +10,6 @@ public class LatLongServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LatLongServiceApplication.class, args);
-		log.info("LatLongServiceApplication started successfully");
+		LOG.info("LatLongServiceApplication started successfully");
 	}
 }
