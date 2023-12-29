@@ -1,5 +1,6 @@
 package com.jaitechltd.latlong.dto.response;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
