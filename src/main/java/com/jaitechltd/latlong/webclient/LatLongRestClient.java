@@ -35,6 +35,11 @@ public class LatLongRestClient {
         return webClient.get()
                 .uri(url)
                 .retrieve()
+                .onStatus(httpStatus -> httpStatus.is4xxClientError() || httpStatus.is5xxServerError(),
+                        clientResponse -> clientResponse.bodyToMono(String.class).flatMap(errorBody -> {
+                            LOG.error("Error response from postcode.io: {}", errorBody);
+                            return Mono.error(new RuntimeException(errorBody));
+                        }))
                 .bodyToMono(ResponseDto.class);
     }
 }
