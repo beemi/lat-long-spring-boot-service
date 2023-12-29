@@ -1,4 +1,4 @@
-package com.jaitechltd.latlongspringbootservice.dto.response;
+package com.jaitechltd.latlong.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -1,8 +1,8 @@
-package com.jaitechltd.latlongspringbootservice.exceptions;
+package com.jaitechltd.latlong.exceptions;
 
 
-import com.jaitechltd.latlongspringbootservice.dto.response.ErrorResponseDto;
-import com.jaitechltd.latlongspringbootservice.dto.response.SubErrorDto;
+import com.jaitechltd.latlong.dto.response.ErrorResponseDto;
+import com.jaitechltd.latlong.dto.response.SubErrorDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

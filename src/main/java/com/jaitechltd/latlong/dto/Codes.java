@@ -1,4 +1,4 @@
-package com.jaitechltd.latlongspringbootservice.dto;
+package com.jaitechltd.latlong.dto;
 
 import lombok.*;
 

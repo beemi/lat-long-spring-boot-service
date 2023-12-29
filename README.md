@@ -2,6 +2,43 @@
 
 This is a simple Spring boot service that returns the latitude and longitude of a given postcode.
 
+# Project structure
+```angular2html
+.
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── README.md
+├── settings.gradle
+src
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── example
+│   │           └── latlong
+│   │               config
+│   │               ├── LatLongConfig.java
+│   │               ├── LatLongSwaggerConfig.java
+│   │               ├── LatLongApplication.java
+│   │               ├── controller
+│   │               │   └── LatLongController.java
+│   │               ├── model
+│   │               │   ├── LatLong.java
+│   │               │   └── Postcode.java
+│   │               ├── service
+│   │               │   ├── LatLongService.java
+│   │               │   └── PostcodeService.java
+│   │               └── util
+│   │                   └── LatLongUtil.java
+│   └── resources
+│       ├── application.properties
+```
+
+
 ```bash
 gradle bootRun
 ```

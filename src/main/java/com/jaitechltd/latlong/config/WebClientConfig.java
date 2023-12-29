@@ -1,4 +1,4 @@
-package com.jaitechltd.latlongspringbootservice.config;
+package com.jaitechltd.latlong.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

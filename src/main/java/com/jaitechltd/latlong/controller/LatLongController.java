@@ -1,8 +1,8 @@
-package com.jaitechltd.latlongspringbootservice.controller;
+package com.jaitechltd.latlong.controller;
 
-import com.jaitechltd.latlongspringbootservice.dto.ResponseDto;
-import com.jaitechltd.latlongspringbootservice.exceptions.BadRequestException;
-import com.jaitechltd.latlongspringbootservice.service.LatLongService;
+import com.jaitechltd.latlong.dto.ResponseDto;
+import com.jaitechltd.latlong.exceptions.BadRequestException;
+import com.jaitechltd.latlong.service.LatLongService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.HttpStatus;

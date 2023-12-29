@@ -1,9 +1,8 @@
-package com.jaitechltd.latlongspringbootservice.service;
+package com.jaitechltd.latlong.service;
 
-import com.jaitechltd.latlongspringbootservice.dto.ResponseDto;
-import com.jaitechltd.latlongspringbootservice.webclient.LatLongRestClient;
+import com.jaitechltd.latlong.dto.ResponseDto;
+import com.jaitechltd.latlong.webclient.LatLongRestClient;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 
 @Service
