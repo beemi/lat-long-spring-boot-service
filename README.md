@@ -1,26 +1,30 @@
 # Spring boot Lat long service
 
-```shell
+This is a simple Spring boot service that returns the latitude and longitude of a given postcode.
+
+```bash
 gradle bootRun
 ```
 
 Build with Gradle:
 
-```shell
+```bash
 gradle clean build
 ```
 Run jar:
 
-```shell
+```bash
 java -jar build/libs/latlong-spring-boot-service-1.0.0.jar
 ```
 
-Swagger UI:
+## Swagger UI:
 
 http://localhost:8080/api-docs/
 
 http://localhost:8080/swagger-ui/index.html
 
+
+### Actuator info endpoint
 
 Actuator health endpoint
 

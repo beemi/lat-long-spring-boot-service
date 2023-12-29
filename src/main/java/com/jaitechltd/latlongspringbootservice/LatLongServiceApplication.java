@@ -11,5 +11,4 @@ public class LatLongServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LatLongServiceApplication.class, args);
 	}
-
 }

@@ -1,8 +1,12 @@
-package com.jaitechltd.latlongspringbootservice;
+package com.jaitechltd.latlongspringbootservice.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
 public class Codes{
 	private String ccgId;
 	private String lau2;
