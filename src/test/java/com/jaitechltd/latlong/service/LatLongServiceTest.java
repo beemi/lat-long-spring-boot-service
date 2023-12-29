@@ -18,13 +18,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class LatLongServiceTest {
 
-    private LatLongService latLongService;
-
     @Mock
     private LatLongRestClient latLongRestClientMock;
-
     @Mock
     private ModelMapper modelMapperMock;
+    private LatLongService latLongService;
 
     @BeforeEach
     public void setUp() {
@@ -46,6 +44,19 @@ public class LatLongServiceTest {
                 .expectNext(mockLatLongResponseDto)
                 .verifyComplete();
     }
+
+    @Test
+    void getLatLong_Error() {
+        String postCode = "12345";
+        RuntimeException exception = new RuntimeException("Error");
+
+        when(latLongRestClientMock.getLatLong(postCode)).thenReturn(Mono.error(exception));
+
+        StepVerifier.create(latLongService.getLatLong(postCode))
+                .expectErrorMatches(throwable -> throwable instanceof RuntimeException && throwable.getMessage().equals("Error"))
+                .verify();
+    }
+
 
     @Test
     void getLatLong_NoResult() {
