@@ -7,6 +7,8 @@ import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+
 @Component
 @Slf4j
 public class LatLongMapper extends AbstractConverter<ResponseDto, LatLongResponseDto> {
@@ -20,8 +22,10 @@ public class LatLongMapper extends AbstractConverter<ResponseDto, LatLongRespons
     @Override
     protected LatLongResponseDto convert(final ResponseDto source) {
         return new LatLongResponseDto(
+                source.getResult().getPostcode(),
                 source.getResult().getLatitude(),
-                source.getResult().getLongitude()
+                source.getResult().getLongitude(),
+                Instant.now()
         );
     }
 }
