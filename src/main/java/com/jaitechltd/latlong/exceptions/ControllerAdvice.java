@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import java.util.List;
 
 @org.springframework.web.bind.annotation.ControllerAdvice
@@ -24,9 +25,10 @@ public class ControllerAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleException(final Exception ex) {
         final String errMsg = "Something went wrong please try again later";
-        final ErrorResponseDto errorResponseDto =
-                new ErrorResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), errMsg, "", "", List.of());
 
+        final ErrorResponseDto errorResponseDto =
+                new ErrorResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), errMsg, "", "", List.of(new SubErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.toString()
+                        , ex.getMessage())));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(errorResponseDto);
     }
 }
