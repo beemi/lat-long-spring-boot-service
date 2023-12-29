@@ -48,6 +48,13 @@ Build with Gradle:
 ```bash
 gradle clean build
 ```
+
+Run test with Gradle:
+
+```bash
+gradle test
+```
+
 Run jar:
 
 ```bash
