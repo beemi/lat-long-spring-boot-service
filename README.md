@@ -2,7 +2,7 @@
 
 This is a simple Spring boot service that returns the latitude and longitude of a given postcode.
 
-# Project structure
+# Project structure :file_folder:
 ```angular2html
 .
 ├── build.gradle
@@ -54,14 +54,14 @@ Run jar:
 java -jar build/libs/latlong-spring-boot-service-1.0.0.jar
 ```
 
-## Swagger UI:
+## Swagger UI :books:
 
 http://localhost:80890/api-docs/
 
 http://localhost:8090/swagger-ui/index.html
 
 
-### Actuator info endpoint
+### Actuator info endpoint :thumbsup:
 
 Actuator health endpoint
 
