@@ -20,7 +20,7 @@ WORKDIR /home/app
 
 COPY --chown=$USER_NAME:$USER_GROUP /build/libs/*.jar app.jar
 
-EXPOSE ${SERVER_PORT} 8080 8090
+EXPOSE ${SERVER_PORT} 8090 8090
 
 ENTRYPOINT exec java \
            -jar app.jar --spring.config.location=classpath:/application.properties
