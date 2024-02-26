@@ -28,16 +28,6 @@ public class LatLongController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @io.swagger.v3.oas.annotations.media.Content(schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = ControllerErrorAdvice.ErrorResponse.class)))})
     public ResponseEntity<?> getLatLong(@RequestParam("postcode") final String postCode) {
-        return ResponseEntity.ok(latLongService.getLatLong(postCode));
-    }
-
-    @GetMapping("/getLatLong2")
-    @Operation(summary = "Get lat long from postcode.io", description = "Get lat long from postcode.io", tags = {"lat-long-service"}
-            , operationId = "getLatLong", responses = {
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "OK"),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Bad Request",
-                    content = @io.swagger.v3.oas.annotations.media.Content(schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = ControllerErrorAdvice.ErrorResponse.class)))})
-    public ResponseEntity<?> getLatLong2(@RequestParam("postcode") final String postCode) {
             return ResponseEntity.ok(latLongService.getLatLong(postCode));
     }
 }
