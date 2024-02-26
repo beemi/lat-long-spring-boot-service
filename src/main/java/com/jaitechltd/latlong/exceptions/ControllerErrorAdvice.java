@@ -1,8 +1,6 @@
 package com.jaitechltd.latlong.exceptions;
 
 
-import com.jaitechltd.latlong.dto.response.ErrorResponseDto;
-import com.jaitechltd.latlong.dto.response.SubErrorDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,16 +28,10 @@ public class ControllerErrorAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDto> handleException(final Exception ex) {
-        final String errMsg = "Something went wrong please try again later";
-
-        final ErrorResponseDto errorResponseDto =
-                new ErrorResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), errMsg, "", "", List.of(new SubErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.toString()
-                        , ex.getMessage())));
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(errorResponseDto);
+    public ResponseEntity<ErrorResponse> handleException(final Exception ex) {
+        LOG.error("An error occurred while processing the request: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(List.of(ex.getMessage())));
     }
 
-
-    public static record ErrorResponse(List<String> errors) {
-    }
+    public static record ErrorResponse(List<String> errors) {}
 }
