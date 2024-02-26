@@ -2,6 +2,7 @@ package com.jaitechltd.latlong.service;
 
 import com.jaitechltd.latlong.dto.ResponseDto;
 import com.jaitechltd.latlong.dto.response.LatLongResponseDto;
+import com.jaitechltd.latlong.exceptions.BadRequestException;
 import com.jaitechltd.latlong.exceptions.PostcodeAlreadyExistsException;
 import com.jaitechltd.latlong.model.LatLongEntity;
 import com.jaitechltd.latlong.repository.LatLongRepository;
@@ -32,6 +33,10 @@ public class LatLongService {
 
     @Transactional
     public LatLongResponseDto getLatLong(final String postCode) {
+
+        if (!postCode.matches("^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$")) {
+            throw new BadRequestException("Invalid UK postcode format, please enter a valid UK postcode");
+        }
 
         Optional<List<LatLongEntity>> latLongEntityList = latLongRepository.findByPostcode(postCode);
         if (latLongEntityList.isPresent()) {

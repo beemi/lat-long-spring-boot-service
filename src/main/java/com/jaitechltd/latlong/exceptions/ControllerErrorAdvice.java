@@ -24,11 +24,9 @@ public class ControllerErrorAdvice {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponseDto> handleBadRequestException(final BadRequestException ex) {
-        final ErrorResponseDto errorResponseDto = new ErrorResponseDto(
-                ex.getStatusCode().value(), "BAD REQUEST", "", "",
-                List.of(new SubErrorDto(ex.getStatusCode().toString(), ex.getMessage())));
-        return ResponseEntity.status(ex.getStatusCode().value()).body(errorResponseDto);
+    public ResponseEntity<ErrorResponse> handleBadRequestException(final BadRequestException ex) {
+            LOG.warn("Invalid UK postcode format: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(List.of(ex.getMessage())));
     }
 
     @ExceptionHandler(Exception.class)
