@@ -1,29 +1,52 @@
 package com.jaitechltd.latlong.service;
 
+import com.jaitechltd.latlong.dto.ResponseDto;
 import com.jaitechltd.latlong.dto.response.LatLongResponseDto;
+import com.jaitechltd.latlong.exceptions.PostcodeAlreadyExistsException;
+import com.jaitechltd.latlong.model.LatLongEntity;
+import com.jaitechltd.latlong.repository.LatLongRepository;
 import com.jaitechltd.latlong.webclient.LatLongRestClient;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
 public class LatLongService {
 
-    LatLongRestClient latLongRestClient;
+    private final LatLongRestClient latLongRestClient;
+
+    private final LatLongRepository latLongRepository;
 
     private final ModelMapper modelMapper;
 
-    public LatLongService(LatLongRestClient latLongRestClient, ModelMapper modelMapper) {
+    public LatLongService(LatLongRestClient latLongRestClient, ModelMapper modelMapper, LatLongRepository latLongRepository) {
         this.latLongRestClient = latLongRestClient;
         this.modelMapper = modelMapper;
+        this.latLongRepository = latLongRepository;
     }
 
-    public Mono<LatLongResponseDto> getLatLong(String postCode) {
+    @Transactional
+    public LatLongResponseDto getLatLong(final String postCode) {
 
-        return latLongRestClient.getLatLong(postCode)
-                .filter(responseDto -> responseDto.getResult() != null)
-                .map(responseDto -> modelMapper.map(responseDto, LatLongResponseDto.class));
+        Optional<List<LatLongEntity>> latLongEntityList = latLongRepository.findByPostcode(postCode);
+        if (latLongEntityList.isPresent()) {
+            throw new PostcodeAlreadyExistsException("Lat long already exists in the database for postcode: " + postCode);
+        }
+
+        ResponseDto responseDto = latLongRestClient.getLatLong(postCode);
+
+        LatLongEntity latLongEntity = new LatLongEntity();
+        latLongEntity.setPostcode(responseDto.getResult().getPostcode().trim());
+        latLongEntity.setLatitude(responseDto.getResult().getLatitude());
+        latLongEntity.setLongitude(responseDto.getResult().getLongitude());
+
+        latLongRepository.save(latLongEntity);
+
+        return modelMapper.map(responseDto, LatLongResponseDto.class);
     }
 }

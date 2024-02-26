@@ -1,11 +1,9 @@
 package com.jaitechltd.latlong.dto;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 public class ResponseDto {
     private Result result;

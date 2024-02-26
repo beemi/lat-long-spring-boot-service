@@ -1,7 +1,6 @@
 package com.jaitechltd.latlong.webclient;
 
 import com.jaitechltd.latlong.dto.ResponseDto;
-import com.jaitechltd.latlong.dto.response.LatLongResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,17 +28,16 @@ public class LatLongRestClient {
      * @param postCode postcode
      * @return ResponseDto
      */
-    public Mono<ResponseDto> getLatLong(final String postCode) {
+    public ResponseDto getLatLong(final String postCode) {
         var url = postcodeIoDns + postcodeIoBaseUrl + postCode;
-        LOG.info("URL: {}", url);
+        LOG.info("Making a call to postcode.io with url: {}", url);
+
         return webClient.get()
                 .uri(url)
                 .retrieve()
                 .onStatus(httpStatus -> httpStatus.is4xxClientError() || httpStatus.is5xxServerError(),
-                        clientResponse -> clientResponse.bodyToMono(String.class).flatMap(errorBody -> {
-                            LOG.error("Error response from postcode.io: {}", errorBody);
-                            return Mono.error(new Exception(errorBody));
-                        }))
-                .bodyToMono(ResponseDto.class);
+                        clientResponse -> Mono.error(new RuntimeException("Error from postcode.io")))
+                .bodyToMono(ResponseDto.class)
+                .block();
     }
 }

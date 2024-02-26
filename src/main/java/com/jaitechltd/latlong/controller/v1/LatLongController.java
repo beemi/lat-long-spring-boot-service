@@ -1,4 +1,4 @@
-package com.jaitechltd.latlong.controller;
+package com.jaitechltd.latlong.controller.v1;
 
 import com.jaitechltd.latlong.dto.response.ErrorResponseDto;
 import com.jaitechltd.latlong.dto.response.LatLongResponseDto;
@@ -7,6 +7,7 @@ import com.jaitechltd.latlong.service.LatLongService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,12 +31,12 @@ public class LatLongController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "OK"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @io.swagger.v3.oas.annotations.media.Content(schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = ErrorResponseDto.class)))})
-    public Mono<LatLongResponseDto> getLatLong(@RequestParam("postcode") final String postCode) {
+    public ResponseEntity<?> getLatLong(@RequestParam("postcode") final String postCode) {
 
         if (postCode == null || postCode.isEmpty()) {
             throw new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid postcode");
         }
-        return latLongService.getLatLong(postCode);
+        return ResponseEntity.ok(latLongService.getLatLong(postCode));
     }
 
     @GetMapping("/getLatLong2")
@@ -44,12 +45,12 @@ public class LatLongController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "OK"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @io.swagger.v3.oas.annotations.media.Content(schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = ErrorResponseDto.class)))})
-    public Mono<LatLongResponseDto> getLatLong2(@RequestParam("postcode") final String postCode) {
+    public ResponseEntity<?> getLatLong2(@RequestParam("postcode") final String postCode) {
 
             if (postCode == null || postCode.isEmpty()) {
                 throw new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid postcode");
             }
-            return latLongService.getLatLong(postCode);
+            return ResponseEntity.ok(latLongService.getLatLong(postCode));
     }
 }
 

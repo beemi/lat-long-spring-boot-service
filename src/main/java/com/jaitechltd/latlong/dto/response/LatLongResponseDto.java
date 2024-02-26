@@ -7,8 +7,7 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@Data
 @EqualsAndHashCode
 public class LatLongResponseDto {
 

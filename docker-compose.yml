@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: "latlong-service-mysql"
+    image: mysql:latest
+    hostname: "latlong-service-mysql"
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=lat_long_service
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=testUser
+      - MYSQL_PASSWORD=test123456
+    volumes:
+      - "data:/var/lib/mysql"
+volumes:
+  data:
