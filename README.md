@@ -2,6 +2,17 @@
 
 This is a simple Spring boot service that returns the latitude and longitude of a given postcode.
 
+## 📋 Requirements
+
+- ☕ Java 17
+- 🏗️ Gradle
+- 🐬 MySQL
+- 🐘 Spring Boot
+- 🐬Liquibase
+- 🐳 Docker
+- 🧩 Docker-compose
+- 📬 Postman
+
 # Project structure :file_folder:
 ```angular2html
 .
@@ -38,6 +49,17 @@ src
 │       ├── application.properties
 ```
 
+### 🐳 Run the Application with Docker-compose
+
+This application uses MySQL as the backend database. To run the application along with MySQL in Docker containers, use
+the following command:
+
+
+### ▶️ Run the Application Locally
+
+```shell
+docker-compose up -d
+```
 
 ```bash
 gradle bootRun
